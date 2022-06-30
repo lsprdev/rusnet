@@ -1,2 +1,2 @@
 # ip-calc
-Calculadora de sub-rede
+Calculadora de sub-rede em rust
