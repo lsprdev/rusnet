@@ -1,31 +1,10 @@
-// IP Address =>
-// Subnet Mask =>
-// Net Address =>
-// Broadcast Address =>
-// Standard Class =>
-// Range =>
-// IP Binary =>
-// Mask Binary =>
-// Net Address Binary =>
-// BC Address Binary =>
-
-//Regex 
-
 use std::io::{self, Write};
 mod ip_fn;
 
 fn main() {
-    let ( mut oct0, mut oct1, mut oct2, mut oct3, mut mask ) = ( String::new(), String::new(), String::new(), String::new(), String::new() );
+    let ( mut oct1, mut oct2, mut oct3, mut oct4, mut mask ) = ( String::new(), String::new(), String::new(), String::new(), String::new() );
 
-    print!("0 Octet => ");
-    io::stdout()
-        .flush()
-        .unwrap();
-    io::stdin()
-        .read_line(&mut oct0)
-        .unwrap();
-
-    print!("1 Octet => ");
+    print!("1st Octet => ");
     io::stdout()
         .flush()
         .unwrap();
@@ -33,20 +12,28 @@ fn main() {
         .read_line(&mut oct1)
         .unwrap();
 
-    print!("2 Octet => ");
+    print!("2nd Octet => ");
     io::stdout()
         .flush()
         .unwrap();
     io::stdin()
         .read_line(&mut oct2)
         .unwrap();
-    
-    print!("3 Octet => ");
+
+    print!("3rd Octet => ");
     io::stdout()
         .flush()
         .unwrap();
     io::stdin()
         .read_line(&mut oct3)
+        .unwrap();
+    
+    print!("4th Octet => ");
+    io::stdout()
+        .flush()
+        .unwrap();
+    io::stdin()
+        .read_line(&mut oct4)
         .unwrap();
 
     print!("Mask => /");
@@ -57,14 +44,20 @@ fn main() {
         .read_line(&mut mask)
         .unwrap();
 
+    // ============================================================
     let ip = ip_fn::main_fn::ip;
-
+    let get_class = ip_fn::main_fn::get_class;
     println!("========================================");
-    println!("IP Address => {}.{}.{}.{}", ip(oct0.clone()).trim(), ip(oct1.clone()).trim(), ip(oct2.clone()).trim(), ip(oct3.clone()).trim());
+    println!("IP Address => {}.{}.{}.{}", 
+    ip(oct1.clone()).trim(), 
+    ip(oct2.clone()).trim(), 
+    ip(oct3.clone()).trim(), 
+    ip(oct4.clone()).trim());
+    
     println!("Subnet Mask => ", );
     println!("Net Address => ",);
     println!("Broadcast Address => ");
-    println!("Standard Class => ", );
+    println!("Standard Class => {}", get_class(oct1.clone()));
     println!("Range => ", );
     println!("IP Binary => ", );
     println!("Mask Binary => ", );
