@@ -47,20 +47,36 @@ fn main() {
     // ============================================================
     let ip = ip_fn::main_fn::ip;
     let get_class = ip_fn::main_fn::get_class;
+    let get_mask = ip_fn::main_fn::mask;
+    let get_broadcast = ip_fn::main_fn::broadcast;
+    let get_ip_range = ip_fn::main_fn::ip_range;
     println!("========================================");
-    println!("IP Address => {}.{}.{}.{}", 
-    ip(oct1.clone()).trim(), 
-    ip(oct2.clone()).trim(), 
-    ip(oct3.clone()).trim(), 
-    ip(oct4.clone()).trim());
     
-    println!("Subnet Mask => ", );
-    println!("Net Address => ",);
-    println!("Broadcast Address => ");
+    println!("Net Address => {}.{}.{}.{}", 
+    ip(oct1.clone()), 
+    ip(oct2.clone()), 
+    ip(oct3.clone()), 
+    ip(oct4.clone()));
+    
+    println!("Subnet Mask => 255.255.255.{}", get_mask(mask.clone()));
+    
+    println!("Broadcast Address => {}.{}.{}.{}", 
+    ip(oct1.clone()),
+    ip(oct2.clone()),
+    ip(oct3.clone()),
+    get_broadcast(get_mask(mask.clone())));
+
     println!("Standard Class => {}", get_class(oct1.clone()));
-    println!("Range => ", );
+
+    println!("Range => {} ~ {}", 
+    get_ip_range(ip(oct4.clone()), get_broadcast(get_mask(mask.clone())))[0],
+    get_ip_range(ip(oct4.clone()), get_broadcast(get_mask(mask.clone())))[1]);
+
     println!("IP Binary => ", );
+
     println!("Mask Binary => ", );
+
     println!("Net Address Binary => ", );
+
     println!("Broadcast Address Binary => ", );
 }
