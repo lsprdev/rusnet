@@ -58,19 +58,19 @@ fn main() {
     ip(oct3.clone()), 
     ip(oct4.clone()));
     
-    println!("Subnet Mask => 255.255.255.{}", get_mask(mask.clone()));
+    println!("Subnet Mask => 255.255.255.{}", get_mask(mask.clone())[3]);
     
     println!("Broadcast Address => {}.{}.{}.{}", 
     ip(oct1.clone()),
     ip(oct2.clone()),
     ip(oct3.clone()),
-    get_broadcast(get_mask(mask.clone())));
+    get_broadcast(get_mask(mask.clone())[3]));
 
     println!("Standard Class => {}", get_class(oct1.clone()));
 
     println!("Range => {} ~ {}", 
-    get_ip_range(ip(oct4.clone()), get_broadcast(get_mask(mask.clone())))[0],
-    get_ip_range(ip(oct4.clone()), get_broadcast(get_mask(mask.clone())))[1]);
+    get_ip_range(ip(oct4.clone()), get_broadcast(get_mask(mask.clone())[3]))[0],
+    get_ip_range(ip(oct4.clone()), get_broadcast(get_mask(mask.clone())[3]))[1]);
 
     println!("IP Binary => ", );
 
