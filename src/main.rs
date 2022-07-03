@@ -1,82 +1,54 @@
-use std::io::{self, Write};
 mod ip_fn;
+use std::env;
 
 fn main() {
-    let ( mut oct1, mut oct2, mut oct3, mut oct4, mut mask ) = ( String::new(), String::new(), String::new(), String::new(), String::new() );
+    let args: Vec<String> = env::args()
+                                    .collect();
+    let ip: Vec<&str> = args[1]
+                            .split(".")
+                            .collect();
+    let mask: String = args[2]
+                            .split("/")
+                            .collect();
+    let mask_parsed: u16 = mask
+                            .parse()
+                            .unwrap();
 
-    print!("1st Octet => ");
-    io::stdout()
-        .flush()
-        .unwrap();
-    io::stdin()
-        .read_line(&mut oct1)
-        .unwrap();
+    let mut ip_parsed: Vec<u16> = vec![];
+    for i in 0..ip.len() {
+        let ip_int: u16 = ip[i]
+                            .parse()
+                            .unwrap();
+        ip_parsed.push(ip_int);
 
-    print!("2nd Octet => ");
-    io::stdout()
-        .flush()
-        .unwrap();
-    io::stdin()
-        .read_line(&mut oct2)
-        .unwrap();
+    }
 
-    print!("3rd Octet => ");
-    io::stdout()
-        .flush()
-        .unwrap();
-    io::stdin()
-        .read_line(&mut oct3)
-        .unwrap();
-    
-    print!("4th Octet => ");
-    io::stdout()
-        .flush()
-        .unwrap();
-    io::stdin()
-        .read_line(&mut oct4)
-        .unwrap();
-
-    print!("Mask => /");
-    io::stdout()
-        .flush()
-        .unwrap();
-    io::stdin()
-        .read_line(&mut mask)
-        .unwrap();
-
-    // ============================================================
-    let ip = ip_fn::main_fn::ip;
-    let get_class = ip_fn::main_fn::get_class;
-    let get_mask = ip_fn::main_fn::mask;
-    let get_broadcast = ip_fn::main_fn::broadcast;
-    let get_ip_range = ip_fn::main_fn::ip_range;
-    println!("========================================");
-    
     println!("Net Address => {}.{}.{}.{}", 
-    ip(oct1.clone()), 
-    ip(oct2.clone()), 
-    ip(oct3.clone()), 
-    ip(oct4.clone()));
+    ip_parsed[0], ip_parsed[1], ip_parsed[2], ip_parsed[3]);
     
-    println!("Subnet Mask => 255.255.255.{}", get_mask(mask.clone())[3]);
-    
+    let sn = ip_fn::subnet::sn(mask_parsed);
+    println!("Subnet Mask => {}.{}.{}.{}", 
+    sn[0], sn[1], sn[2], sn[3]);
+
+    let bc = ip_fn::broadcast::bc(sn[3]);
     println!("Broadcast Address => {}.{}.{}.{}", 
-    ip(oct1.clone()),
-    ip(oct2.clone()),
-    ip(oct3.clone()),
-    get_broadcast(get_mask(mask.clone())[3]));
+    ip_parsed[0], ip_parsed[1], ip_parsed[2], bc);
 
-    println!("Standard Class => {}", get_class(oct1.clone()));
+    let cl = ip_fn::class::class(ip_parsed[0]);
+    println!("Standard Class => {}", cl);
 
+    let rg = ip_fn::range::rg(ip_parsed[3], sn[3]);
     println!("Range => {} ~ {}", 
-    get_ip_range(ip(oct4.clone()), get_broadcast(get_mask(mask.clone())[3]))[0],
-    get_ip_range(ip(oct4.clone()), get_broadcast(get_mask(mask.clone())[3]))[1]);
+    rg[0], rg[1]);
 
-    println!("IP Binary => ", );
+    println!("Net Address Binary => {:b}.{:b}.{:b}.{:b}", 
+    ip_parsed[0], ip_parsed[1], ip_parsed[2], ip_parsed[3]);
 
-    println!("Mask Binary => ", );
+    println!("Mask Binary => {:b}.{:b}.{:b}.{:b}", 
+    sn[0], sn[1], sn[2], sn[3]);
 
-    println!("Net Address Binary => ", );
+    println!("Broadcast Address Binary => {:b}.{:b}.{:b}.{:b}", 
+    ip_parsed[0], ip_parsed[1], ip_parsed[2], bc);
 
-    println!("Broadcast Address Binary => ", );
+
 }

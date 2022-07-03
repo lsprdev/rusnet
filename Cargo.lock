@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "ip-calc"
+name = "rusnet"
 version = "0.1.0"
