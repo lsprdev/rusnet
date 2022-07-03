@@ -1,4 +1,5 @@
 mod ip_fn;
+mod info;
 use std::env;
 
 /*  rusnet -- IPv4 Subnet Calculator
@@ -16,7 +17,7 @@ use std::env;
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    
+
  */
 
 /*
@@ -28,6 +29,7 @@ use std::env;
 fn main() {
     let args: Vec<String> = env::args()
                                     .collect();
+
     let ip: Vec<&str> = args[1]
                             .split(".")
                             .collect();
