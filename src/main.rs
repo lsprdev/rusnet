@@ -27,54 +27,60 @@ use std::env;
  */
 
 fn main() {
+    // Get the arguments from the command line
     let args: Vec<String> = env::args()
                                     .collect();
 
+    // Split the first argument into a vector(".")
     let ip: Vec<&str> = args[1]
                             .split(".")
                             .collect();
+
+    // Split the second argument("/")
     let mask: String = args[2]
                             .split("/")
                             .collect();
+
+    // Parse the mask into a u16 -- String to u16
     let mask_parsed: u16 = mask
                             .parse()
                             .unwrap();
 
+    // Parse the ip into a vector of u16 -- Vec<&str> to Vec<u16>
     let mut ip_parsed: Vec<u16> = vec![];
     for i in 0..ip.len() {
-        let ip_int: u16 = ip[i]
+        let ip_u16: u16 = ip[i]
                             .parse()
                             .unwrap();
-        ip_parsed.push(ip_int);
+        ip_parsed.push(ip_u16);
 
     }
-
     println!("Net Address => {}.{}.{}.{}", 
     ip_parsed[0], ip_parsed[1], ip_parsed[2], ip_parsed[3]);
     
-    let sn = ip_fn::subnet::sn(mask_parsed);
+    let subnet = ip_fn::subnet::sn(mask_parsed);
     println!("Subnet Mask => {}.{}.{}.{}", 
-    sn[0], sn[1], sn[2], sn[3]);
+    subnet[0], subnet[1], subnet[2], subnet[3]);
 
-    let bc = ip_fn::broadcast::bc(sn[3]);
+    let broadcast = ip_fn::broadcast::bc(subnet[3]);
     println!("Broadcast Address => {}.{}.{}.{}", 
-    ip_parsed[0], ip_parsed[1], ip_parsed[2], bc);
+    ip_parsed[0], ip_parsed[1], ip_parsed[2], broadcast);
 
-    let cl = ip_fn::class::class(ip_parsed[0]);
-    println!("Standard Class => {}", cl);
+    let class = ip_fn::class::class(ip_parsed[0]);
+    println!("Standard Class => {}", class);
 
-    let rg = ip_fn::range::rg(ip_parsed[3], sn[3]);
+    let range = ip_fn::range::rg(ip_parsed[3], subnet[3]);
     println!("Range => {} ~ {}", 
-    rg[0], rg[1]);
+    range[0], range[1]);
 
     println!("Net Address Binary => {:b}.{:b}.{:b}.{:b}", 
     ip_parsed[0], ip_parsed[1], ip_parsed[2], ip_parsed[3]);
 
     println!("Mask Binary => {:b}.{:b}.{:b}.{:b}", 
-    sn[0], sn[1], sn[2], sn[3]);
+    subnet[0], subnet[1], subnet[2], subnet[3]);
 
     println!("Broadcast Address Binary => {:b}.{:b}.{:b}.{:b}", 
-    ip_parsed[0], ip_parsed[1], ip_parsed[2], bc);
+    ip_parsed[0], ip_parsed[1], ip_parsed[2], broadcast);
 
 
 }
