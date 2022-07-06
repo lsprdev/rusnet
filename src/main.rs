@@ -73,13 +73,13 @@ fn main() {
     println!("Range => {} ~ {}", 
     range[0], range[1]);
 
-    println!("Net Address Binary => {:b}.{:b}.{:b}.{:b}", 
+    println!("Net Address Binary => {:08b}.{:08b}.{:08b}.{:08b}", 
     ip_parsed[0], ip_parsed[1], ip_parsed[2], ip_parsed[3]);
 
-    println!("Mask Binary => {:b}.{:b}.{:b}.{:b}", 
+    println!("Mask Binary => {:08b}.{:08b}.{:08b}.{:08b}", 
     subnet[0], subnet[1], subnet[2], subnet[3]);
 
-    println!("Broadcast Address Binary => {:b}.{:b}.{:b}.{:b}", 
+    println!("Broadcast Address Binary => {:08b}.{:08b}.{:08b}.{:08b}", 
     ip_parsed[0], ip_parsed[1], ip_parsed[2], broadcast);
 
 
