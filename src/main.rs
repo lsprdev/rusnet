@@ -25,7 +25,7 @@ use std::env;
  *   version 0.1.0
  *   since Jul 1, 2022
  */
-
+// Rewrite it with clap && add new mask functions
 fn main() {
     // Get the arguments from the command line
     let args: Vec<String> = env::args()
