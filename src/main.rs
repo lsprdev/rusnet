@@ -21,7 +21,7 @@ use std::env;
  */
 
 /*
- *   author Gabriel L. Pereira <ogabrielpereira@pm.me>
+ *   author Gabriel L. Pereira aka <ogabrielpereira@pm.me>
  *   version 0.1.0
  *   since Jul 1, 2022
  */
